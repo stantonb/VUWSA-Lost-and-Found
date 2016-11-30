@@ -1,0 +1,180 @@
+html{
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin-bottom: 60px;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.resultbox {
+    min-height : 80px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    /*background-color: #f4f4f9;*/
+
+}
+
+.resultbox a{
+    padding: 0px;
+    color: #000000;
+    font: 14px "Lucida Grande",Helvetica,Arail,sans-serif;
+
+}
+.resultbox p{
+    padding-top : 0px;
+    padding-left: 0px;
+}
+
+.media-body{
+    padding-left: 10px;
+}
+
+.media-left{
+    padding-bottom: 10px;
+}
+
+.btn-custom {
+    color: #FFFFFF;
+    background-color: #7bae23;   /* change  button color */
+    border-radius: 0!important;    /* button border radius */
+    padding: 6px 10px;              /* Button size change*/
+
+}
+
+.btn-custom:hover{
+    background-color:#9AC94B; /* change  button color on hover */
+    border-radius: 0!important;
+
+}
+
+.custom-glyph-color{
+    color:#fff;       /* change  magnifying glass color in  button */
+}
+
+.custom-glyph-color:hover{
+    color:#b1b1b1;         /* change  magnifying glass color in  button on mouse hover */
+}
+
+.logo{
+    position: relative;
+    top:0;
+    bottom:90px;
+}
+
+.searchbar{
+
+}
+
+.footer {
+    position: absolute;
+    right: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 65px;
+}
+
+#itemPhoto{
+    position: relative;
+    text-align: left;
+}
+
+#itemDetails{
+    position: relative;
+    text-align: left;
+}
+
+#editItemBtn{
+    position: relative;
+    text-align: justify;
+}
+
+.social {
+    display: inline;
+    text-align: right;
+    float: right;
+    transform: translate(0%, 0%);
+}
+
+.vertsync{
+    position: relative;
+    top: 50%;
+    transform: translateY(150%);
+}
+
+.vertsyncresults{
+    position: relative;
+    top: 50%;
+    transform: translateY(-5%);
+}
+
+.vertsyncstats{
+    position: relative;
+    top: 50%;
+    transform: translateY(10%);
+}
+
+.carousel{
+    width: 75%;
+    margin-top:3.5%;
+    margin-left: 18%;
+    margin-bottom: 2%;
+    position: relative;
+}
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    width: 100%;
+    height:5%;
+}
+
+.graph .labels.x-labels {
+    text-anchor: middle;
+}
+
+.graph .labels.y-labels {
+    text-anchor: end;
+}
+
+
+.graph {
+    height: 500px;
+    width: 800px;
+}
+
+.graph .grid {
+    stroke: #ccc;
+    stroke-dasharray: 0;
+    stroke-width: 1;
+}
+
+.labels {
+    font-size: 13px;
+}
+
+.label-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    fill: black;
+}
+
+.data {
+    fill: red;
+    stroke-width: 1;
+}
+
+.container.main{
+    margin-top:5%;
+    position: absolute;
+    margin-left: 0;
+}

@@ -1,0 +1,41 @@
+extends ../node_modules/jade-bootstrap/_bootstrap
+append styles
+  link(rel='stylesheet', href='/stylesheets/style.css')
+  link(rel='stylesheet', href='/stylesheets/normalize.css')
+  link(rel='stylesheet', href='/stylesheets/skeleton.css')
+
+script(src='')
+script(src='js/bootstrap.js')
+script(src='js/jquery-1.7.1.min.js')
+
+
+block body
+  include navBar
+  include sidebar
+  br
+  #myCarousel.carousel.slide(data-ride='carousel')
+    // Indicators
+    ol.carousel-indicators
+      li.active(data-target='#myCarousel', data-slide-to='0')
+      li(data-target='#myCarousel', data-slide-to='1')
+    .carousel-inner
+      .item.active
+        img(src='images/kelburnCampus.jpg', alt='Kelburn')
+        .container
+          .carousel-caption
+            h1 Lost Something at Kelburn?
+            p
+              a.btn.btn-lg.btn-primary(href='/advancedsearch', role='button') Find It Now!
+      .item
+        img(src='images/lawCampus.jpg', alt='Pipitea')
+        .container
+          .carousel-caption
+            h1 Lost Something at Pipitea?
+            p
+              a.btn.btn-lg.btn-primary(href='/advancedsearch', role='button') Find It Now!
+
+    a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+      span.glyphicon.glyphicon-chevron-left
+    a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
+      span.glyphicon.glyphicon-chevron-right
+  include footer

@@ -1,0 +1,23 @@
+//Created by bhulapriy on 1/08/16
+extends ../node_modules/jade-bootstrap/_bootstrap
+append styles
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/skeleton.css')
+block body
+    include navBar
+    include sidebar
+    .container
+        .col-lg-4
+            .row
+            br
+            br
+            br
+            h3 Log In
+            form.centerAdd(action="/login",method="post",id="loginform" )
+                h10 Username
+                input(type='text', name="username",placeholder="Username", class="u-full-width", required="true")
+                h10 Password
+                input(type='password', name="password",placeholder="Password",class="u-full-width", required="true")
+                input(type='submit',value='Login' class="button-primary u-full-width")
+    include footer

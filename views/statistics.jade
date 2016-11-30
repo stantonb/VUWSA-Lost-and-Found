@@ -1,0 +1,69 @@
+//
+   Created by borthwstan on 8/08/16.
+
+extends ../node_modules/jade-bootstrap/_bootstrap
+append styles
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/skeleton.css')
+block body
+    include navBar
+    include sidebar
+    .container
+        div(class="vertsyncstats")
+            h1 Items Returned
+            div(class="row")
+                div(class="six columns")
+                    svg(class="graph")
+                        g(class="grid x-grid")
+                            line(x1="90" x2="90" y1="0" y2="450")
+                        g(class="grid y-grid")
+                            line(x1="90" x2="720" y1="450" y2="450")
+                        g(class="labels x-labels")
+                            text(x="140" y="470") Jan
+                            text(x="190" y="470") Feb
+                            text(x="240" y="470") March
+                            text(x="290" y="470") April
+                            text(x="340" y="470") May
+                            text(x="390" y="470") June
+                            text(x="440" y="470") July
+                            text(x="490" y="470") Aug
+                            text(x="540" y="470") Sept
+                            text(x="590" y="470") Oct
+                            text(x="640" y="470") Nov
+                            text(x="690" y="470") Dec
+                            text(x="350" y="490" class="label-title") Month
+                        g(class="labels y-labels")
+                            text(x='80', y='10') 450
+                            text(x='80', y='150') 300
+                            text(x='80', y='300') 150
+                            text(x='80', y='450') 0
+                            text(x="55" y="200" class="label-title") Number
+                        g(class="data" data-setname="data from the database")
+                            circle(cx='140', cy='#{january}', data-value='7.2', r='4')
+                            circle(cx='190', cy='#{february}', data-value='7.2', r='4')
+                            circle(cx='240', cy='#{march}', data-value='7.2', r='4')
+                            circle(cx='290', cy='#{april}', data-value='7.2', r='4')
+                            circle(cx='340', cy='#{may}', data-value='7.2', r='4')
+                            circle(cx='390', cy='#{june}', data-value='7.2', r='4')
+                            circle(cx='440', cy='#{july}', data-value='7.2', r='4')
+                            circle(cx='490', cy='#{august}', data-value='7.2', r='4')
+                            circle(cx='540', cy='#{september}', data-value='7.2', r='4')
+                            circle(cx='590', cy='#{october}', data-value='7.2', r='4')
+                            circle(cx='640', cy='#{november}', data-value='7.2', r='4')
+                            circle(cx='690', cy='#{december}', data-value='7.2', r='4')
+
+    br
+    br
+    br
+    br
+    br
+    .container
+        .panel.panel-default
+            .panel-body
+                b Statistics Panel
+                br
+                
+
+    include footer
+

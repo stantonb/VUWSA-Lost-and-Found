@@ -1,0 +1,92 @@
+//Created by gelidotris 8/08/16
+
+extends ../node_modules/jade-bootstrap/_bootstrap
+
+append styles
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/skeleton.css')
+
+block body
+    include navBar
+    include sidebar
+    .container
+        .row
+            br
+            br
+            br
+            .col-md-1
+            #itemPhoto.col-md-3
+                if (photoSRC == '' || photoSRC == null) /* If there is no image for the item */
+                    img(src="images/defaultImg.png" style="width:200px;")
+
+                else
+                    // Click on photo to view enlarged item photo
+                    a(href='#{photoSRC}', data-toggle='modal', data-target='#photoModal')
+                        img(src='#{photoSRC}', style="width:200px;")
+
+                    // Modal to view enlarged item photo
+                    #photoModal.modal.fade(role='dialog')
+                        .modal-dialog
+                           .modal-content
+                               .modal-header
+                                   button.close(type='button', data-dismiss='modal') ×
+                                   h4.modal-title #{itemName}
+                               .modal-body
+                                   img(src='#{photoSRC}', style="width:500px;")
+                               .modal-footer
+                                   button.btn.btn-success(type='button', data-dismiss='modal') Close
+
+                #editItemBtn.col-sm-12
+                    br
+                    a(href='/editItem?id=#{itemid} ')
+                        button.btn.btn-success Edit
+
+
+            #itemDetails.col-md-8
+                .panel.panel-success
+                    // Default panel contents
+                    .panel-heading
+                        b #{itemid}. #{itemName}
+                    .panel-body
+                        p #{itemDesc}
+                    // List group
+                    ul.list-group
+                        li.list-group-item
+                            b Category:
+                            |  #{itemCategory}
+                        li.list-group-item
+                            b Date Received:
+                            |  #{itemDateReceived}
+                        li.list-group-item
+                            b Location Found:
+                            |  #{itemLocFound}
+                        li.list-group-item
+                            b Owner's Name:
+                            |  #{itemOwnerName}
+                        if itemCampusLoc == 'All Campuses'
+                            li.list-group-item
+                                b Currently held in (Campus Location):
+                        else if itemCampusLoc != 'All Campuses'
+                            li.list-group-item
+                                b Currently held in (Campus Location):
+                                |  #{itemCampusLoc}
+                        if (itemReturnStatus != null && itemReturnStatus != ' ' && itemReturnStatus != 'undefined')
+                            li.list-group-item
+                                b Return Status:
+                                |  #{itemReturnStatus}
+                        if itemReturnStatus == 'Owner'
+                            li.list-group-item
+                                b Date Returned:
+                                |  #{itemDateReturned}
+                        if itemReturnStatus == 'Disposed'
+                            li.list-group-item
+                                b Date Disposed:
+                                |  #{itemDateReturned}
+    .col-md-2
+    .col-md-9
+        .row
+            if (message != null)
+                .alert.alert-success #{message}
+
+    include footer

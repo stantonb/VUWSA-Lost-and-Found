@@ -1,0 +1,54 @@
+//
+   Created by borthwstan on 26/09/16.
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        title Refactored date examples
+        link(rel='stylesheet', href='https://code.jquery.com/qunit/qunit-2.0.1.css')
+        script(src='https://code.jquery.com/qunit/qunit-2.0.1.js')
+        script.
+            var data = !{JSON.stringify(result)} ;
+            var test = !{JSON.stringify(test)} ;
+
+            data = JSON.stringify(data);
+
+            if(test=="countitems"){
+                QUnit.test("testCountItems", function (assert) {
+                    var array=[2,21,13,157,0,351,59,121,8,3,2,0];
+                    array = JSON.stringify(array);
+                    assert.equal(data,array);
+                });
+                
+
+            } else if(test=="addremovecategory"){
+                QUnit.test("testaddremovecategory", function (assert) {
+                    var ob = JSON.parse(data);
+                    assert.ok(ob.first && ob.second);
+                });
+
+
+
+            } else if(test=="addremovecampus"){
+                QUnit.test("testaddremovecampus", function (assert) {
+                    var ob = JSON.parse(data);
+                    assert.ok(ob.first && ob.second);
+                });
+            } else if (test == "editItem") {
+                QUnit.test("editItem", function (assert) {
+                    var ob = JSON.parse(data);
+                    assert.equal(ob.second,ob.first);
+                });
+            }
+
+
+            } else if (test == "addremoveitem") {
+                QUnit.test("testaddremoveitem", function (assert) {
+                    var ob = JSON.parse(data);
+                    assert.ok(ob.first && ob.second);
+                });
+            }
+
+
+    body
+        #qunit

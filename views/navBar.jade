@@ -1,0 +1,22 @@
+//
+   Created by pangaaro on 1/08/16.
+#navBar
++navbar-fixed
+
+    +nav_item("/")
+        #logo
+        +img-responsive ("images/logo.png", "logo")
+    +nav_item
+        form.navbar-form.navbar-right(role='search', action = "/search", method = "get")
+            form.form-group(action="/",method="get")
+                input.input-block-level(type="text", name="mysearch", placeholder="Search")
+                button.btn.btn-small(type="submit") Submit
+    +nav_item
+        #user
+        if(user==null)
+            br
+            p not logged in
+        else
+            br
+            p Hello, #{user.username}!
+block content

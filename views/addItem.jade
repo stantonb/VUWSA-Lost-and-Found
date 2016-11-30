@@ -1,0 +1,94 @@
+//
+   Created by johnstrobe on 1/08/16.
+include ../node_modules/jade-bootstrap/_bootstrap
+block head
+    link(rel = "stylesheet", href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css")
+    script(type = "text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
+    script(type = "text/javascript", src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js')
+
+append styles
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/skeleton.css')
+
+block body
+    include navBar
+    include sidebar
+    .container
+        .col-lg-10
+            .row
+            br
+            br
+            .page-header
+                h4
+                    | Add Item
+                    small  -- Add a new record to the database
+            if (message!=null)
+                .alert.alert-success #{message}
+            form.centerAdd(action="/addItem",method="post",id="form1" )
+
+                ul.list-group
+                    li.list-group-item
+                        h8
+                            b Item Name
+                            br
+                            input(class="form-control",type="text", name = "itemName", placeholder="Name", form="form1", required)
+                    li.list-group-item
+                        h8
+                            b Item Description
+                            br
+                            input(class="form-control",type="text", name = "itemDescription", placeholder="Description",form="form1", required)
+                    li.list-group-item
+                        h8
+                            b Item Category
+                            br
+                            select(class="form-control",name="category" form="form1")
+                                each category in categories
+                                    if(category.category != "All Categories")
+                                        option(value='#{category.category}') #{category.category}
+                    li.list-group-item
+                        h8
+                            b Date Received
+                            br
+                            script.
+                                $(document).ready(function () {
+                                    $("#datepicker").datepicker({dateFormat: "dd-mm-yy"});
+                                });
+                            input(type = "text", id = "datepicker", form="form1", name = "dateReceived")
+
+                    li.list-group-item
+                        h8
+                            b Campus
+                            br
+                            select(class="form-control",name="campus" form="form1")
+                                each location in campus
+                                    option(value='#{location.campus}') #{location.campus}
+                    li.list-group-item
+                        h8
+                            b Location Found
+                            br
+                            input(class="form-control",type="text", name = "locationFound", placeholder="e.g. The Hub",form="form1", required)
+
+                    li.list-group-item
+                        h8
+                            b Owner's Name
+                            br
+                            input(class="form-control", type="text", name="ownerName", placeholder="Insert name here",form="form1")
+
+                    li.list-group-item
+                        h8
+                            b Image
+                            br
+                            img(src="images/defaultImg.png" style="width:200px;")
+                            br
+                            br
+                            h8
+                                i Add photo url (optional)
+                            input.form-control(type='text', name='photourl', placeholder='Photo URL..')
+                            br
+                            br
+
+
+
+
+                input.btn(type="submit" form="form1" value="submit")

@@ -1,0 +1,190 @@
+// Created by gelidotris on 8/08/16.
+
+include ../node_modules/jade-bootstrap/_bootstrap
+block head
+    link(rel = "stylesheet", href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css")
+    script(type = "text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
+    script(type = "text/javascript", src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js")
+
+append styles
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/skeleton.css')
+
+block body
+    include navBar
+    include sidebar
+    .container
+        .col-lg-1
+        .col-lg-10
+            .row
+            br
+            br
+            .page-header
+                if (message != null)
+                    .alert.alert-danger #{message}
+                h4
+                    | Edit Item
+                    small   -- #{itemName}
+            form.centerAdd(action="/viewItem?id=#{itemid}",method="post",id="form2" )
+                ul.list-group
+                    li.list-group-item
+                        h8
+                            b Item Name
+                            br
+                            if itemName == null
+                                input(class="form-control",type="text", name = "itemName", placeholder = '', form="form2")
+                            else
+                                input(class="form-control",type="text", name = "itemName", value='#{itemName}', form="form2")
+                    li.list-group-item
+                        h8
+                            b Item Description
+                            br
+                            input(class="form-control",type="text", name = "itemDescription", value='#{itemDesc}',form="form2", required)
+                    li.list-group-item
+                        h8
+                            b Item Category
+                            br
+                            select(class="form-control",name="category" form="form2", required)
+                                each category in categories
+                                    if(itemCategory == category.category)
+                                        option(value='#{itemCategory}',selected='selected') #{category.category}
+                                    else
+                                        option(value = '#{category.category}') #{category.category}
+                    li.list-group-item
+                        h8
+                            b Date Received
+                            br
+                            script.
+                                $(document).ready(function () {
+                                    $("#datepicker").datepicker({dateFormat: "dd-mm-yy"});
+                                });
+                            input(type = "text", id = "datepicker", form = "form2", name = "dateReceived", value = '#{itemDateReceived}', required)
+                    li.list-group-item
+                        h8
+                            b Location Found
+                            br
+                            if itemLocFound == null
+                                input(class="form-control",type="text", name = "locationFound", placeholder= "Item found at ...",form="form2")
+                            else
+                                input(class="form-control",type="text", name = "locationFound", value='#{itemLocFound}',form="form2")
+                    li.list-group-item
+                        h8
+                            b Owner's Name
+                            br
+                            if itemOwnerName == null
+                                input(class="form-control", type="text", name="ownerName", placeholder="Insert name here",form="form2")
+                            else
+                                input(class="form-control", type = "text", name = "ownerName", value='#{itemOwnerName}', form = "form2")
+                    li.list-group-item
+                        h8
+                            b Which Campus the item is at
+                            br
+                            select(class="form-control",name="campus" form="form2")
+                                each location in campus
+                                    if(itemCampusLoc == location.campus)
+                                        option(value='#{itemCampusLoc}',selected='selected') #{location.campus}
+                                    else
+                                        option(value='#{location.campus}') #{location.campus}
+                    li.list-group-item
+                        h8
+                            b Image
+                            br
+                            if (photoSRC == '' || photoSRC == null) /* If there is no image for the item */
+
+                                img(src="images/defaultImg.png" style="width:200px;")
+                                br
+                                br
+                                h8 Edit photo url (Clear photo url to delete photo)
+                                    input.form-control(type='text', name='photourl', placeholder='Photo URL..')
+
+                            else
+                                img(src='#{photoSRC}', style="width:200px;")
+                                br
+                                br
+                                h8 Edit photo url (Clear photo url to delete photo)
+                                    input.form-control(type='text', name='photourl', value='#{photoSRC}')
+                    li.list-group-item
+                        h8
+                            b Return Status
+                            br
+                            .btn-group(data-toggle='buttons', id = "returnStatus", form="form2")
+                                if itemReturnStatus == 'Owner'
+                                    label.btn.btn-default
+                                        input#option2(type='radio', name='returnstatus', autocomplete='off', value = ' ')
+                                        |  Held by VUWSA
+                                    label.btn.btn-default.active
+                                        input#option1(type='radio', name='returnstatus', autocomplete='off', value = 'Owner', checked='')
+                                        a(href='#datepickerModal', role='button', data-toggle='modal') Returned to Owner
+                                    label.btn.btn-default
+                                        input#option2(type='radio', name='returnstatus', autocomplete='off', value = 'Disposed')
+                                        a(href='#datepickerModal', role='button', data-toggle='modal') Disposed
+                                    label.btn.btn-default
+                                        input#option3(type='radio', name='returnstatus', autocomplete='off', value = 'Police')
+                                        |  Given to Police
+                                else if itemReturnStatus == 'Disposed'
+                                    label.btn.btn-default
+                                        input#option2(type='radio', name='returnstatus', autocomplete='off', value = ' ')
+                                        |  Held by VUWSA
+                                    label.btn.btn-default
+                                        input#option1(type='radio', name='returnstatus', autocomplete='off', value = 'Owner')
+                                        a(href='#datepickerModal', role='button', data-toggle='modal') Returned to Owner
+                                    label.btn.btn-default.active
+                                        input#option2(type='radio', name='returnstatus', autocomplete='off', value = 'Disposed', checked='')
+                                        a(href='#datepickerModal', role='button', data-toggle='modal') Disposed
+                                    label.btn.btn-default
+                                        input#option3(type='radio', name='returnstatus', autocomplete='off', value = 'Police')
+                                        |  Given to Police
+                                else if itemReturnStatus == 'Police'
+                                    label.btn.btn-default
+                                        input#option2(type='radio', name='returnstatus', autocomplete='off', value = ' ')
+                                        |  Held by VUWSA
+                                    label.btn.btn-default
+                                        input#option1(type='radio', name='returnstatus', autocomplete='off', value = 'Owner')
+                                        a(href='#datepickerModal', role='button', data-toggle='modal') Returned to Owner
+                                    label.btn.btn-default
+                                        input#option2(type='radio', name='returnstatus', autocomplete='off', value = 'Disposed')
+                                        a(href='#datepickerModal', role='button', data-toggle='modal') Disposed
+                                    label.btn.btn-default.active
+                                        input#option3(type='radio', name='returnstatus', autocomplete='off', value = 'Police', checked='')
+                                        |  Given to Police
+                                else
+                                    label.btn.btn-default.active
+                                        input#option2(type='radio', name='returnstatus', autocomplete='off', value = ' ', checked='')
+                                        |  Held by VUWSA
+                                    label.btn.btn-default
+                                        input#option1(type='radio', name='returnstatus', autocomplete='off', value = 'Owner')
+                                        a(href='#datepickerModal', role='button', data-toggle='modal') Returned to Owner
+                                    label.btn.btn-default
+                                        input#option2(type='radio', name='returnstatus', autocomplete='off', value = 'Disposed')
+                                        a(href='#datepickerModal', role='button', data-toggle='modal') Disposed
+                                    label.btn.btn-default
+                                        input#option3(type='radio', name='returnstatus', autocomplete='off', value = 'Police')
+                                        |  Given to Police
+
+                            #datepickerModal.modal.fade(role='dialog')
+                                .modal-dialog
+                                    .modal-content
+                                        .modal-header
+                                            button.close(type='button', data-dismiss='modal') ×
+                                            h4.modal-title #{itemName} -- Date Returned/Disposed
+                                        .modal-body
+                                            input(type = "text", id = "datepicker2", form = "form2", name = "dateReturned", value = '#{itemDateReturned}')
+                                            script.
+                                                $(document).ready(function () {
+                                                    $("#datepicker2").datepicker({dateFormat: "dd-mm-yy"});
+                                                });
+                                            br
+                                            button.btn.btn-success(type='button', data-dismiss='modal') Set Date
+
+
+
+
+                input(type = "hidden", name = "itemid", value = '#{itemid}', form = 'form2')
+                input.btn.btn-success(type="submit" form="form2" value="submit")
+                form
+                    input(type='button', value='Cancel', onclick='history.go(-1);return true;')
+
+
+    include footer
+

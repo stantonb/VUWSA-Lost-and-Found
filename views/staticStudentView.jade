@@ -1,0 +1,64 @@
+include ../node_modules/jade-bootstrap/_bootstrap
+
+block head
+    link(rel = "stylesheet", href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css")
+    script(type = "text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
+    script(type = "text/javascript", src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js")
+
+append styles
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/skeleton.css')
+    link(rel = "stylesheet", href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css")
+    script(type = "text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
+    script(type = "text/javascript", src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js")
+block body
+    include navBar
+        .col-md-4
+            form.centerAdd(action="/studentSearchResults",method="get",id="form1" )
+                br
+                br
+                br
+                br
+                h6 Item Found Date Range
+                h6 From  (use format dd-mm-yy)
+
+
+                input.btn.btn-success(type="submit" form="form1" value="search")
+        .col-md-6
+            div(class="vertsyncresults")
+
+                br
+                br
+                br
+                br
+                .col-md-2
+                    br
+                h4 Results
+                .col-sm-2
+                    br
+                .col-sm-8
+                    p Your search returned #{resultslength} results
+                    br
+                    if(results != null)
+                        each result in results
+                            div(class="resultbox")
+                                .panel.panel-success
+                                    .panel-heading
+                                        a(href = '/viewitem?itemid=#{result.itemid} ', name='link') #{result.itemid}. #{result.itemname}
+                                    .media
+                                        .media-body
+                                            a(href = '/viewitem?itemid=#{result.itemid} ', name='link') location found: #{result.locationfound}
+                                            p item category : #{result.category}
+                                            p date received : #{result.datereceived}
+
+                    br
+                    p Due to privacy and security reasons we can't allow students full access to the details of the items or to use the full search functionality.
+                    p If you are a student, please search using the Category and Date filters or visit VUWSA to find out more.
+                    p
+                        | If you are a VUWSA member then please
+                        a(href='/login')  log in
+                        |  to gain full search privileges
+
+
+    include footer

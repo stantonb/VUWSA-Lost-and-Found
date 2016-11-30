@@ -1,0 +1,140 @@
+// a page that can be used to edit stuff about the db, such as what categories to include, what campuses etc etc
+   Created by johnstrobe on 1/08/16.
+include ../node_modules/jade-bootstrap/_bootstrap
+block head
+    link(rel = "stylesheet", href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css")
+    script(type = "text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
+    script(type = "text/javascript", src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js')
+
+append styles
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/skeleton.css')
+
+block body
+    .col-md-10
+        .row
+            include navBar
+    .container
+        .col-md-8
+            //include sidebar
+            .row
+                br
+                br
+                br
+                h3 Make changes to the database
+                p Note: If a change has just been completed successfully, you may need to reload the page to see correct DB info
+                br
+                h2 #{message}
+                form.centerAdd(action="/editdb",method="post",id="form1" )
+                    h4
+                        | Add Category
+                        small   -- Adds a category to the databases list of available categories
+                    input(class="form-control",type="text", name = "addCategory", form="form1")
+                    input.btn.btn-success(type="submit" form="form1" value="execute")
+
+                br
+                form.centerAdd(action="/editdb",method="post",id="form2" )
+                    h4
+                        | Remove Category
+                        small   -- Remove an existing category
+                    select(class="form-control",name="removeCategory" form="form2")
+                        each category in categories
+                            option(value='#{category.category}') #{category.category}
+                    input.btn.btn-success(type="submit" form="form2" value="execute")
+
+                br
+                form.centerAdd(action="/editdb",method="post",id="form3" )
+
+                    h4
+                        | Add Campus
+                        small   -- Adds a campus to the database's list of available campuses
+                        input(class="form-control",type="text", name = "addCampus", form="form3")
+                    input.btn.btn-success(type="submit" form="form3" value="execute")
+
+                br
+                form.centerAdd(action="/editdb",method="post",id="form4" )
+
+                    h4
+                        | Remove Campus
+                        small  -- Remove an existing campus
+                    select(class="form-control",name="removeCampus" form="form4")
+                        each location in campus
+                            option(value='#{location.campus}') #{location.campus}
+                    input.btn.btn-success(type="submit" form="form4" value="execute")
+
+                br
+                form.centerAdd(action="/editdb",method="post",id="form5" )
+
+                    h4
+                        | Add new Information Field (Column) to the item table
+                        small  -- Adds a new column to the items field, need the name and data type! (ie dont use this if you dont know what sql is)
+
+                    p Name for this column
+                        input(class="form-control",type="text", name = "addColName", form="form5",required)
+                    p The type of data it will store
+                        input(class="form-control",type="text", name = "addColType", form="form5",required)
+                    input.btn.btn-success(type="submit" form="form5" value="execute")
+
+                br
+                form.centerAdd(action="/editdb",method="post",id="form6" )
+
+                    h4
+                        | Remove an existing information field (column) from the items table
+                        small  -- Will attempt to drop the column which matches the name given here within items table
+                    p Name of column to drop
+                        input(class="form-control",type="text", name = "removeColName", form="form6",required)
+                    input.btn.btn-success(type="submit" form="form6" value="execute")
+
+                br
+                form.centerAdd(action="/editdb",method="post",id="form7" )
+
+                    h4
+                        | Permanently delete an item from the database
+                        small  -- Actually deletes the item, not just marking it as returned/disposed
+                    p Use the Unique item ID
+                        input(class="form-control",type="text", name = "itemRemoveID", form="form7",required)
+                    input.btn.btn-success(type="submit" form="form7" value="execute")
+
+                br
+                form.centerAdd(action="/editdb",method="post",id="form8" )
+
+                    h4
+                        | Permanently Delete all items older than a given data
+                        small  -- Should very rarely be needed
+                    p All items listed before the given date will be deleted - Use with caution!
+                        script.
+                            $(document).ready(function () {
+                                $("#datepicker").datepicker({dateFormat: "dd-mm-yy"});
+                            });
+                        input(class="form-control",type="text", id = "datepicker", name = "itemRemoveDate", form="form8",required)
+                    input.btn.btn-success(type="submit" form="form8" value="execute")
+
+                br
+                form.centerAdd(action="/editdb",method="post",id="form9" )
+
+                    h4
+                        | Get Static JSON representation of DB
+                        small  -- Could be used to avoid always connecting directly to DB
+                        input(class="form-control",type="text",hidden="true",name="publish",form="form9", value="publish",required)
+                    input.btn.btn-success(type="submit" form="form9" value="PUBLISH")
+
+                br
+                form.centerAdd(action="/editdb",method="post",id="form10" )
+                    h4
+                        | Submit a new user to the system (for logging on)
+                    p Username
+                        input(class="form-control",type="text",name="username",form="form10",required)
+                    p Password
+                        input(class="form-control",type="password",name="password",form="form10",required)
+                    p Confirm password
+                        input(class="form-control",type="text",name="password2",form="form10",required)
+                    input.btn.btn-success(type="submit" form="form10" value="execute")
+
+                br
+                form.centerAdd(action="/editdb",method="post",id="form11" )
+                    h4
+                        | Removes a user from the system
+                        small  -- Username = name of user to remove
+                        input(class="form-control",type="text",name="toRemove",form="form11",required)
+                    input.btn.btn-success(type="submit" form="form11" value="execute")

@@ -1,0 +1,37 @@
+//
+   Created by bhulapriy on 22/08/16.
+#sidebar
+
+    div(class="sidebar")
+        .container.main
+            .row
+                .col-md-4
+                    h5
+                        i.glyphicon.glyphicon-home
+                        small
+                            b  Main
+                    ul.nav.nav-pills.nav-stacked
+                        li
+                            a(href='/') Home
+                        if(user == null)
+                        else
+                            li
+                                a(href='/addItem') Add Item
+                            li
+                                a(href='/search?mysearch=') View All Items
+                            li
+                                a(href='/editdb') Database Admin
+
+                    h5
+                        i.glyphicon.glyphicon-user
+                        small
+                            b User
+                    ul.nav.nav-pills.nav-stacked
+                        if(user == null)
+                            li
+                                a(href='/login') Log In
+                        else
+                            li
+                                a(href='/statistics') View Statistics
+                            li
+                                a(href='/logout') Log Out
